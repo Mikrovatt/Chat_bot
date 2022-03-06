@@ -113,18 +113,25 @@ while text != 'стоп':
 '''
 # Зарегистратировать нового бота и получить ключ доступа @BotFather
 # Подключить наш лод к библиотеке telegram-bot
+
 from telegram import Update
-from telegram.ext import Updater, CommandHandler, CallbackContext
+from telegram.ext import Updater, CommandHandler, CallbackContext, MessageHandler, Filters
 
 BOT_KEY = '5285593507:AAAH1LLOeH8c2CCMHNFG238JyVQLk5eSkW3o'
 
 def hello(update: Update, context: CallbackContext) -> None:
     update.message.reply_text(f'Hello {update.effective_user.first_name}')
 
+# Функция будет вызвана при получении сообщения
+def botMessage(update: Update, context: CallbackContext):
+    text = update.message.text
+    reply = bot(text) # готовим ответ
+    update.message.reply_text(reply) # отправляем ответ обратно пользователю
 
 updater = Updater(BOT_KEY)
 
-updater.dispatcher.add_handler(CommandHandler('hello', hello))
+updater.dispatcher.add_handler(CommandHandler('hello', hello)) #  конфигурация, при получении команды /hello вызывает функцию hello
+updater.dispatcher.add_handler(MessageHandler(Filters.text, botMessage)) # при получении любого текстового сообщения будет вызавана функция botMessage
 
 updater.start_polling()
 updater.idle()
