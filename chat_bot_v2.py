@@ -116,7 +116,7 @@ while text != 'стоп':
 from telegram import Update
 from telegram.ext import Updater, CommandHandler, CallbackContext
 
-BOT_KEY = '5285593507:AAH1LLOeH8c2CCMHNFG238JyVQLk5eSkW3o'
+BOT_KEY = '5285593507:AAAH1LLOeH8c2CCMHNFG238JyVQLk5eSkW3o'
 
 def hello(update: Update, context: CallbackContext) -> None:
     update.message.reply_text(f'Hello {update.effective_user.first_name}')
